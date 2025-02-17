@@ -1,6 +1,8 @@
 package com.falon.trendingprojects
 
+import android.os.Build
 import android.os.Bundle
+import android.view.animation.AccelerateInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +19,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupSplashScreenAnimation()
         enableEdgeToEdge()
         setContent {
             AppTheme {
@@ -25,6 +28,22 @@ class MainActivity : ComponentActivity() {
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
+                }
+            }
+        }
+    }
+
+    private fun setupSplashScreenAnimation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            splashScreen.setOnExitAnimationListener { splashScreenView ->
+                splashScreenView.iconView?.animate()?.apply {
+                    scaleX(0.8f)
+                    scaleY(0.8f)
+                    alpha(0f)
+                    interpolator = AccelerateInterpolator()
+                    duration = 400L
+                    withEndAction { splashScreenView.remove() }
+                    start()
                 }
             }
         }

@@ -14,8 +14,12 @@
                 android:endX="200"
                 android:endY="200"
                 android:type="linear">
-                <item android:offset="0" android:color="#FF2E2E2E"/>
-                <item android:offset="1" android:color="#FF1A1A1A"/>
+                <item
+                    android:offset="0"
+                    android:color="@color/icon_gradient_start" />
+                <item
+                    android:offset="1"
+                    android:color="@color/icon_gradient_end" />
             </gradient>
         </aapt:attr>
     </path>
