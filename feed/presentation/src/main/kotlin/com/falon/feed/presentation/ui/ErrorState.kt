@@ -20,7 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -30,7 +30,10 @@ import com.falon.feed.presentation.R
 @Composable
 fun ErrorState(
     modifier: Modifier = Modifier,
-    onRetry: () -> Unit
+    onRefresh: () -> Unit,
+    painter: Painter,
+    reasonText: String,
+    tryAgainText: String,
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
@@ -51,8 +54,8 @@ fun ErrorState(
                 verticalArrangement = Arrangement.Center
             ) {
                 Image(
-                    painter = painterResource(R.drawable.no_wifi_icon),
-                    contentDescription = stringResource(R.string.something_went_wrong),
+                    painter = painter,
+                    contentDescription = reasonText,
                     modifier = Modifier.size(64.dp)
                 )
 
@@ -68,7 +71,7 @@ fun ErrorState(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = stringResource(R.string.try_again),
+                    text = tryAgainText,
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
@@ -77,14 +80,14 @@ fun ErrorState(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Button(
-                    onClick = onRetry,
+                    onClick = onRefresh,
                     shape = RoundedCornerShape(8.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
-                    Text(text = "Retry")
+                    Text(text = stringResource(R.string.retry))
                 }
             }
         }
