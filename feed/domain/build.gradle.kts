@@ -1,6 +1,7 @@
 plugins {
-    id("java-library")
-    alias(libs.plugins.jetbrains.kotlin.jvm)
+    id("com.android.library")
+    alias(libs.plugins.kotlin.android)
+    kotlin("kapt")
 }
 
 java {
@@ -9,7 +10,17 @@ java {
     }
 }
 
+android {
+    namespace = "com.falon.feed.domain"
+    compileSdk = libs.versions.compileSdk.get().toInt()
+
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+    }
+}
+
 dependencies {
-    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
     implementation(libs.javax.inject)
 }

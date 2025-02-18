@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     FeedScreen(
-                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -56,6 +55,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     AppTheme {
-        FeedScreen("Android")
+        FeedScreen()
     }
 }

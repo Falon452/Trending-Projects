@@ -25,5 +25,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
     kapt(libs.hilt.compiler)
 }
