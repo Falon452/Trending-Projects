@@ -1,6 +1,8 @@
 plugins {
-    id("java-library")
-    alias(libs.plugins.jetbrains.kotlin.jvm)
+    id("com.android.library")
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.gradle.plugin)
+    kotlin("kapt")
 }
 
 java {
@@ -9,6 +11,19 @@ java {
     }
 }
 
+android {
+    namespace = "com.falon.feed.data"
+    compileSdk = libs.versions.compileSdk.get().toInt()
+
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+    }
+}
+
 dependencies {
     implementation(project(":feed:domain"))
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }

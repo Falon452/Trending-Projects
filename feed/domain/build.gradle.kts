@@ -8,3 +8,8 @@ java {
         languageVersion = JavaLanguageVersion.of(libs.versions.java.get().toInt())
     }
 }
+
+dependencies {
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.javax.inject)
+}

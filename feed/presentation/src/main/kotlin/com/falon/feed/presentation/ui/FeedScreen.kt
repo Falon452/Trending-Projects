@@ -4,10 +4,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.falon.feed.presentation.viewmodel.FeedViewModel
 import com.falon.theme.AppTheme
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun FeedScreen(
+    name: String,
+    modifier: Modifier = Modifier,
+    viewModel: FeedViewModel = hiltViewModel(),
+) {
     Text(
         text = "Hello $name!",
         modifier = modifier
@@ -16,8 +22,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-internal fun GreetingPreview() {
+private fun FeedScreenPreview() {
     AppTheme {
-        Greeting("Android")
+        FeedScreen("Android")
     }
 }
