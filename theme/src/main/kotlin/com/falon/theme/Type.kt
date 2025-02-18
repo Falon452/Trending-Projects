@@ -1,34 +1,33 @@
-package com.falon.trendingprojects.theme
+package com.falon.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
-import com.falon.trendingprojects.R
 
-val provider = GoogleFont.Provider(
+internal val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
     providerPackage = "com.google.android.gms",
     certificates = R.array.com_google_android_gms_fonts_certs
 )
 
-val bodyFontFamily = FontFamily(
+internal val bodyFontFamily = FontFamily(
     Font(
         googleFont = GoogleFont("ABeeZee"),
         fontProvider = provider,
     )
 )
 
-val displayFontFamily = FontFamily(
+internal val displayFontFamily = FontFamily(
     Font(
         googleFont = GoogleFont("Nerko One"),
         fontProvider = provider,
     )
 )
 
-val baseline = Typography()
+internal val baseline = Typography()
 
-val AppTypography = Typography(
+internal val AppTypography = Typography(
     displayLarge = baseline.displayLarge.copy(fontFamily = displayFontFamily),
     displayMedium = baseline.displayMedium.copy(fontFamily = displayFontFamily),
     displaySmall = baseline.displaySmall.copy(fontFamily = displayFontFamily),

@@ -1,4 +1,4 @@
-package com.falon.trendingprojects.theme
+package com.falon.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

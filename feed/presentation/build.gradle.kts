@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
 }
@@ -11,24 +11,16 @@ java {
 }
 
 android {
-    namespace = "com.falon.trendingprojects"
+    namespace = "com.falon.feed.presentation"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.falon.trendingprojects"
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     buildFeatures {
@@ -37,19 +29,14 @@ android {
 }
 
 dependencies {
-    implementation(project(":theme"))
-    implementation(project(":feed:data"))
     implementation(project(":feed:domain"))
-    implementation(project(":feed:presentation"))
+    implementation(project(":theme"))
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.core.splashscreen)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
+    testImplementation(libs.junit)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.tooling.preview)
 }

@@ -1,4 +1,8 @@
 [versions]
+java = "17"
+compileSdk = "35"
+minSdk = "24"
+targetSdk = "35"
 agp = "8.8.1"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
@@ -8,6 +12,7 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
 composeBom = "2025.02.00"
 composeUiTextGoogleFonts = "1.7.8"
+jetbrainsKotlinJvm = "2.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,4 +31,6 @@ androidx-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }

@@ -12,7 +12,6 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
@@ -21,3 +20,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "Trending Projects"
 include(":app")
+include(":feed")
+include(":feed:presentation")
+include(":feed:domain")
+include(":feed:data")
+include(":theme")
