@@ -6,7 +6,6 @@ import com.falon.feed.domain.model.TrendingProject
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 import javax.inject.Inject
-import kotlin.random.Random
 
 class ObserveTrendingProjectsUseCase @Inject constructor(
     private val trendingProjectsRepository: TrendingProjectsRepository,
@@ -19,7 +18,7 @@ class ObserveTrendingProjectsUseCase @Inject constructor(
             stars = MINIMUM_STARS,
         )
 
-    private fun sevenDaysAgo(): LocalDateTime = LocalDateTime.now().minusDays(Random.nextLong(7L))
+    private fun sevenDaysAgo(): LocalDateTime = LocalDateTime.now().minusDays(7L)
 
     private companion object {
 

@@ -62,7 +62,7 @@ fun ErrorState(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = stringResource(R.string.something_went_wrong),
+                    text = reasonText,
                     style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurface

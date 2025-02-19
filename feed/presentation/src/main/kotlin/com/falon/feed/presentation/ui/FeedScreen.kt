@@ -1,5 +1,8 @@
 package com.falon.feed.presentation.ui
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,9 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.paging.LoadState.Error
 import androidx.paging.LoadState.Loading
 import androidx.paging.LoadState.NotLoading
@@ -25,19 +28,21 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.falon.feed.domain.model.TrendingProject
 import com.falon.feed.presentation.R
+import com.falon.feed.presentation.utils.encodeUrl
 import com.falon.feed.presentation.viewmodel.FeedViewModel
-import com.falon.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
-fun FeedScreen(
+fun SharedTransitionScope.FeedScreen(
+    navController: NavController,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     viewModel: FeedViewModel = hiltViewModel(),
 ) {
     val projects: LazyPagingItems<TrendingProject> =
         viewModel.trendingProjects.collectAsLazyPagingItems()
     var isRefreshing = rememberSaveable { mutableStateOf(false) }
-    val state = rememberPullToRefreshState()
+    val pullToRefreshState = rememberPullToRefreshState()
     val onRefresh: () -> Unit = {
         isRefreshing.value = true
         projects.refresh()
@@ -63,7 +68,6 @@ fun FeedScreen(
                 }
             }
         }
-
         loadState is Error && projects.itemCount == 0 -> {
             ErrorState(
                 modifier = modifier,
@@ -73,10 +77,8 @@ fun FeedScreen(
                 painter = painterResource(R.drawable.no_wifi_icon),
                 reasonText = stringResource(R.string.something_went_wrong),
                 tryAgainText = stringResource(R.string.try_again),
-
-                )
+            )
         }
-
         loadState is NotLoading && projects.itemCount == 0 -> {
             ErrorState(
                 modifier = modifier,
@@ -88,11 +90,10 @@ fun FeedScreen(
                 tryAgainText = stringResource(R.string.adjust_search)
             )
         }
-
         else -> {
             PullToRefreshBox(
                 modifier = Modifier.padding(),
-                state = state,
+                state = pullToRefreshState,
                 isRefreshing = isRefreshing.value,
                 onRefresh = onRefresh,
             ) {
@@ -105,18 +106,28 @@ fun FeedScreen(
                     items(projects.itemCount) { index ->
                         val project = projects[index]
                         if (project != null) {
+                            val starRes = when (index % 5) {
+                                0 -> R.drawable.star0
+                                1 -> R.drawable.star1
+                                2 -> R.drawable.star2
+                                3 -> R.drawable.star3
+                                else -> R.drawable.star4
+                            }
                             TrendingProjectCard(
-                                project,
-                                onClick = { },
-                                starPainter = painterResource(
-                                    when (index % 5) {
-                                        0 -> R.drawable.star0
-                                        1 -> R.drawable.star1
-                                        2 -> R.drawable.star2
-                                        3 -> R.drawable.star3
-                                        else -> R.drawable.star4
-                                    }
-                                )
+                                project = project,
+                                onClick = {
+                                    val title =
+                                        "${project.ownerLogin} / ${project.repositoryName}".encodeUrl()
+                                    val desc = project.description.encodeUrl()
+                                    val ownerAvatarUrl = project.ownerAvatarUrl.encodeUrl()
+                                    val stars = project.stars
+                                    val id = project.id
+                                    navController.navigate(
+                                        "details/$id/$title/$ownerAvatarUrl/$desc/$starRes/$stars"
+                                    )
+                                },
+                                starPainter = painterResource(starRes),
+                                animatedVisibilityScope = animatedVisibilityScope,
                             )
                         }
                     }
@@ -134,13 +145,5 @@ fun FeedScreen(
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun FeedScreenPreview() {
-    AppTheme {
-        FeedScreen()
     }
 }

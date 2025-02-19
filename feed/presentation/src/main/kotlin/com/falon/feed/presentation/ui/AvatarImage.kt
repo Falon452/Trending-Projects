@@ -20,7 +20,6 @@ fun AvatarImage(
 ) {
     Box(
         modifier = modifier
-            .size(48.dp)
             .clip(CircleShape)
             .border(2.dp, MaterialTheme.colorScheme.outline, CircleShape)
     ) {

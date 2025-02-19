@@ -1,5 +1,8 @@
 package com.falon.feed.presentation.ui
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,13 +30,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.falon.feed.domain.model.TrendingProject
+import com.falon.feed.presentation.model.ProjectSharedElementKey
+import com.falon.feed.presentation.model.ProjectSharedElementType
 
-
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun TrendingProjectCard(
+fun SharedTransitionScope.TrendingProjectCard(
     project: TrendingProject,
     modifier: Modifier = Modifier,
     starPainter: Painter,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     onClick: () -> Unit,
 ) {
     Card(
@@ -69,7 +75,17 @@ fun TrendingProjectCard(
                 ) {
                     AvatarImage(
                         imageUrl = project.ownerAvatarUrl,
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier
+                            .size(40.dp)
+                            .sharedElement(
+                                state = rememberSharedContentState(
+                                    key = ProjectSharedElementKey(
+                                        projectId = project.id.toString(),
+                                        type = ProjectSharedElementType.AvatarImage,
+                                    )
+                                ),
+                                animatedVisibilityScope = animatedVisibilityScope,
+                            ),
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))
@@ -78,7 +94,17 @@ fun TrendingProjectCard(
                         text = "${project.ownerLogin} / ${project.repositoryName}",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier
+                            .weight(1f)
+                            .sharedElement(
+                                state = rememberSharedContentState(
+                                    key = ProjectSharedElementKey(
+                                        projectId = project.id.toString(),
+                                        type = ProjectSharedElementType.Title,
+                                    )
+                                ),
+                                animatedVisibilityScope = animatedVisibilityScope,
+                            ),
                     )
 
                     Row(
@@ -87,11 +113,30 @@ fun TrendingProjectCard(
                         Image(
                             painter = starPainter,
                             contentDescription = "Star",
-                            modifier = Modifier.size(32.dp)
+                            modifier = Modifier
+                                .size(32.dp)
+                                .sharedElement(
+                                    state = rememberSharedContentState(
+                                        key = ProjectSharedElementKey(
+                                            projectId = project.id.toString(),
+                                            type = ProjectSharedElementType.StarImage,
+                                        )
+                                    ),
+                                    animatedVisibilityScope = animatedVisibilityScope,
+                                ),
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = project.stars.toString(),
+                            modifier = Modifier.sharedElement(
+                                state = rememberSharedContentState(
+                                    key = ProjectSharedElementKey(
+                                        projectId = project.id.toString(),
+                                        type = ProjectSharedElementType.Stars,
+                                    )
+                                ),
+                                animatedVisibilityScope = animatedVisibilityScope,
+                            ),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -102,6 +147,15 @@ fun TrendingProjectCard(
 
                 Text(
                     text = project.description,
+                    modifier = Modifier.sharedElement(
+                        state = rememberSharedContentState(
+                            key = ProjectSharedElementKey(
+                                projectId = project.id.toString(),
+                                type = ProjectSharedElementType.Description,
+                            )
+                        ),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                    ),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
                     maxLines = 2,
