@@ -8,20 +8,23 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-
 @Composable
-fun ShimmerEffect(
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+fun ShimmerPlaceholder(
+    modifier: Modifier = Modifier
 ) {
     val transition = rememberInfiniteTransition()
     val translateAnim = transition.animateFloat(
@@ -47,23 +50,20 @@ fun ShimmerEffect(
         end = Offset(translateAnim.value, translateAnim.value)
     )
 
-    Box(
+    Card(
         modifier = modifier
-            .background(brush = brush)
+            .fillMaxWidth()
+            .height(120.dp),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Transparent,
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     ) {
-        content()
-    }
-}
-
-@Composable
-fun ShimmerPlaceholder(
-    modifier: Modifier = Modifier
-) {
-    ShimmerEffect(modifier = modifier) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp)
+                .fillMaxSize()
+                .background(brush)
         )
     }
 }

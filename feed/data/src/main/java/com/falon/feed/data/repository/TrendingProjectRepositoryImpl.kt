@@ -34,6 +34,7 @@ internal class TrendingProjectRepositoryImpl @Inject constructor(
                         afterCreatedDate,
                         stars,
                     ),
+                    perPage = pageSize,
                     gitHubApi = gitHubApi,
                     trendingProjectMapper = trendingProjectMapper,
                 )

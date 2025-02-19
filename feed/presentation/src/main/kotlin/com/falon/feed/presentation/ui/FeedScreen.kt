@@ -1,13 +1,10 @@
 package com.falon.feed.presentation.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
@@ -55,8 +52,13 @@ fun FeedScreen(
 
     when {
         loadState is Loading -> {
-            LazyColumn(modifier = modifier) {
-                items(30) { index ->
+            LazyColumn(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                items(20) { index ->
                     ShimmerPlaceholder()
                 }
             }
@@ -66,7 +68,7 @@ fun FeedScreen(
             ErrorState(
                 modifier = modifier,
                 onRefresh = {
-                    projects.retry()
+                    projects.refresh()
                 },
                 painter = painterResource(R.drawable.no_wifi_icon),
                 reasonText = stringResource(R.string.something_went_wrong),
@@ -79,13 +81,14 @@ fun FeedScreen(
             ErrorState(
                 modifier = modifier,
                 onRefresh = {
-                    projects.retry()
+                    projects.refresh()
                 },
                 painter = painterResource(R.drawable.search),
                 reasonText = stringResource(R.string.no_results),
                 tryAgainText = stringResource(R.string.adjust_search)
             )
         }
+
         else -> {
             PullToRefreshBox(
                 modifier = Modifier.padding(),
@@ -93,11 +96,28 @@ fun FeedScreen(
                 isRefreshing = isRefreshing.value,
                 onRefresh = onRefresh,
             ) {
-                LazyColumn(modifier = modifier) {
+                LazyColumn(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
                     items(projects.itemCount) { index ->
                         val project = projects[index]
                         if (project != null) {
-                            Text(text = project.name)
+                            TrendingProjectCard(
+                                project,
+                                onClick = { },
+                                starPainter = painterResource(
+                                    when (index % 5) {
+                                        0 -> R.drawable.star0
+                                        1 -> R.drawable.star1
+                                        2 -> R.drawable.star2
+                                        3 -> R.drawable.star3
+                                        else -> R.drawable.star4
+                                    }
+                                )
+                            )
                         }
                     }
 
@@ -109,15 +129,6 @@ fun FeedScreen(
                                     .padding(16.dp)
                                     .wrapContentWidth(Alignment.CenterHorizontally)
                             )
-                        } else if (projects.loadState.append is Error) {
-                            CircularProgressIndicator(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(MaterialTheme.colorScheme.errorContainer)
-                                    .padding(16.dp)
-                                    .wrapContentWidth(Alignment.CenterHorizontally)
-                            )
-                            projects.retry()
                         }
                     }
                 }
@@ -125,7 +136,6 @@ fun FeedScreen(
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

@@ -9,6 +9,7 @@ import com.falon.feed.domain.model.TrendingProject
 
 internal class TrendingProjectsPagingSource(
     private val query: GitHubQuery,
+    private val perPage: Int,
     private val gitHubApi: GitHubApi,
     private val trendingProjectMapper: TrendingProjectMapper,
 ) : PagingSource<Int, TrendingProject>() {
@@ -19,6 +20,7 @@ internal class TrendingProjectsPagingSource(
             val response = gitHubApi.searchRepositories(
                 query = query,
                 page = currentPage,
+                perPage = perPage,
             )
 
             val repositories = response.repositories ?: emptyList()

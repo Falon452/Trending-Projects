@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
+    implementation(libs.coil.compose)
     debugImplementation(libs.androidx.ui.tooling.preview)
     testImplementation(libs.junit)
 }

@@ -24,6 +24,6 @@ class ObserveTrendingProjectsUseCase @Inject constructor(
     private companion object {
 
         const val MINIMUM_STARS = 100
-        const val PAGE_SIZE = 50
+        const val PAGE_SIZE = 10
     }
 }
