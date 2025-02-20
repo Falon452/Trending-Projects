@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,15 +39,16 @@ class ProjectDetailsViewModel @Inject constructor(
 
     private fun loadReadMe() {
         viewModelScope.launch {
-            val selectedProject = _state.value.selectedProject
-            val readme = getReadmeUseCase.execute(
-                owner = selectedProject.ownerLogin,
-                repo = selectedProject.repositoryName,
-            )
-            _state.value = _state.value.copy(
-                readmeContent = readme,
-                loadingReadmeFailed = readme == null
-            )
+            _state.update {
+                val readme = getReadmeUseCase.execute(
+                    owner = it.selectedProject.ownerLogin,
+                    repo = it.selectedProject.repositoryName,
+                )
+                it.copy(
+                    readmeContent = readme,
+                    loadingReadmeFailed = readme == null
+                )
+            }
         }
     }
 

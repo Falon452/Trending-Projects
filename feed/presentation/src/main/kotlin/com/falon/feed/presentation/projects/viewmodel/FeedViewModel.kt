@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDateTime
@@ -54,7 +55,7 @@ class FeedViewModel @Inject constructor(
         viewModelScope.launch {
             themePreferences.observeIsDarkMode()
                 .collectLatest { isDarkMode ->
-                    _state.value = _state.value.copy(isDarkMode = isDarkMode)
+                    _state.update { it.copy(isDarkMode = isDarkMode) }
                 }
         }
     }
@@ -68,11 +69,11 @@ class FeedViewModel @Inject constructor(
     }
 
     private suspend fun loadPagedTrendingProjects(afterCreatedDate: LocalDateTime) {
-        _trendingProjects.value = PagingData.empty()
+        _trendingProjects.update { PagingData.empty() }
         observeTrendingProjectsUseCase.execute(afterCreatedDate)
             .cachedIn(viewModelScope)
             .collectLatest { pagingData ->
-                _trendingProjects.value = pagingData
+                _trendingProjects.update { pagingData }
             }
     }
 
@@ -89,15 +90,15 @@ class FeedViewModel @Inject constructor(
     }
 
     fun onDateClicked() {
-        _state.value = _state.value.copy(showDatePicker = true)
+        _state.update { it.copy(showDatePicker = true) }
     }
 
     fun onDismissRequest() {
-        _state.value = _state.value.copy(showDatePicker = false)
+        _state.update { it.copy(showDatePicker = false) }
     }
 
     fun onDatePickerConfirmButtonClicked() {
-        _state.value = _state.value.copy(showDatePicker = false)
+        _state.update { it.copy(showDatePicker = false) }
     }
 
     fun onDateSelected(millis: Long?) {
@@ -105,7 +106,7 @@ class FeedViewModel @Inject constructor(
             val localDateTime = Instant.ofEpochMilli(millis)
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime()
-            _state.value = _state.value.copy(afterCreatedDate = localDateTime)
+            _state.update { it.copy(afterCreatedDate = localDateTime) }
         }
     }
 }
