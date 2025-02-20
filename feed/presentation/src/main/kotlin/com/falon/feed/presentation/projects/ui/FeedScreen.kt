@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
@@ -21,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -73,14 +73,14 @@ fun SharedTransitionScope.FeedScreen(
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 title = { Text(stringResource(R.string.trending_projects)) },
                 actions = {
                     Switch(
-                        modifier = modifier.padding(end = 8.dp),
                         checked = state.value.isDarkMode,
                         onCheckedChange = { viewModel.toggleTheme() }
                     )
+                    Spacer(modifier = Modifier.width(4.dp))
                     IconButton(onClick = {
                         viewModel.onDateClicked()
                     }) {
@@ -89,6 +89,7 @@ fun SharedTransitionScope.FeedScreen(
                             contentDescription = stringResource(R.string.date_picker)
                         )
                     }
+                    Spacer(modifier = Modifier.width(8.dp))
                 }
             )
         }
