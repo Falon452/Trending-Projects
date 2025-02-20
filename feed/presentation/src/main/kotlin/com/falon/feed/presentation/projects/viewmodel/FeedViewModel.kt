@@ -7,11 +7,13 @@ import androidx.paging.cachedIn
 import com.falon.feed.domain.model.TrendingProject
 import com.falon.feed.domain.usecase.ObserveTrendingProjectsUseCase
 import com.falon.feed.domain.usecase.SaveSelectedTrendingProjectsUseCase
+import com.falon.feed.presentation.di.IoDispatcher
 import com.falon.feed.presentation.projects.mapper.ProjectsViewStateMapper
 import com.falon.feed.presentation.projects.model.ProjectsState
 import com.falon.feed.presentation.projects.model.ProjectsViewState
 import com.falon.theme.ThemePreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -34,6 +36,7 @@ class FeedViewModel @Inject constructor(
     private val saveSelectedTrendingProjectsUseCase: SaveSelectedTrendingProjectsUseCase,
     private val themePreferences: ThemePreferences,
     viewStateMapper: ProjectsViewStateMapper,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _trendingProjects =
@@ -56,7 +59,7 @@ class FeedViewModel @Inject constructor(
     }
 
     private fun observeDarkMode() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             themePreferences.observeIsDarkMode()
                 .collectLatest { isDarkMode ->
                     _state.update { it.copy(isDarkMode = isDarkMode) }
@@ -65,7 +68,7 @@ class FeedViewModel @Inject constructor(
     }
 
     private fun observeAfterCreatedDateChanges() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             _state.map { it.afterCreatedDate }
                 .distinctUntilChanged()
                 .collectLatest(::loadPagedTrendingProjects)
@@ -82,13 +85,13 @@ class FeedViewModel @Inject constructor(
     }
 
     fun onTrendingProjectCardClicked(project: TrendingProject) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             saveSelectedTrendingProjectsUseCase.execute(project)
         }
     }
 
     fun toggleTheme() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             themePreferences.saveDarkMode(!_state.value.isDarkMode)
         }
     }

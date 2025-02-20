@@ -7,7 +7,9 @@ import com.falon.feed.domain.usecase.GetReadmeUseCase
 import com.falon.feed.presentation.details.factory.ProjectDetailsStateFactory
 import com.falon.feed.presentation.details.mapper.ProjectsDetailsViewStateMapper
 import com.falon.feed.presentation.details.model.ProjectDetailsViewState
+import com.falon.feed.presentation.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,6 +27,7 @@ class ProjectDetailsViewModel @Inject constructor(
     private val clearSelectedTrendingProjectsUseCase: ClearSelectedTrendingProjectsUseCase,
     stateFactory: ProjectDetailsStateFactory,
     viewStateMapper: ProjectsDetailsViewStateMapper,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(stateFactory.create())
@@ -43,7 +46,7 @@ class ProjectDetailsViewModel @Inject constructor(
     }
 
     private fun loadReadMe() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             _state.update {
                 val readme = getReadmeUseCase.execute(
                     owner = it.selectedProject.ownerLogin,
