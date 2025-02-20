@@ -2,7 +2,6 @@ package com.falon.trendingprojects
 
 import android.os.Build
 import android.os.Bundle
-import android.view.animation.AccelerateInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -22,6 +21,7 @@ import com.falon.feed.presentation.details.ui.ProjectDetailsScreen
 import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel.Companion.STAR_RESOURCE_ARG
 import com.falon.feed.presentation.projects.ui.FeedScreen
 import com.falon.theme.ui.AppTheme
+import com.falon.trendingprojects.util.shrinkAndFadeAnimationRun
 import dagger.hilt.android.AndroidEntryPoint
 import com.falon.feed.presentation.R as FeedR
 
@@ -42,14 +42,8 @@ class MainActivity : ComponentActivity() {
     private fun setupSplashScreen() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             splashScreen.setOnExitAnimationListener { splashScreenView ->
-                splashScreenView.iconView?.animate()?.apply {
-                    scaleX(0.35f)
-                    scaleY(0.35f)
-                    alpha(0f)
-                    interpolator = AccelerateInterpolator()
-                    duration = 500L
-                    withEndAction { splashScreenView.remove() }
-                    start()
+                splashScreenView.iconView?.shrinkAndFadeAnimationRun {
+                    splashScreenView.remove()
                 }
             }
         }
@@ -66,7 +60,7 @@ fun AppNavigation() {
         SharedTransitionLayout {
             val navController = rememberNavController()
             NavHost(navController, startDestination = Routes.PROJECTS) {
-                composable(Routes.PROJECTS) { backStackEntry ->
+                composable(Routes.PROJECTS) {
                     FeedScreen(navController, this)
                 }
                 composable(
