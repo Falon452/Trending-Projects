@@ -28,12 +28,31 @@ GitHub API does not provide an endpoint for trending repositories. Therefore, I 
 
 ## 🎉 Animations 🎉  
 
-- 🚀 **Splash Screen Animation**: Shrink + Fade Out ✨  
-- 🌗 **Shimmers**: Supports both **dark mode** & **light mode** 💡  
-- 🔄 **[Shared Element Transition](https://developer.android.com/develop/ui/compose/animation/shared-elements)**: Smooth animation when clicking on a project 🎬  
+- 🚀 **Splash Screen Animation**: Shrink + Fade Out 
+- ✨ **Shimmers**: Supports both **dark mode** & **light mode** 
+- ⭐ **Shared Element Transition**: Smooth animation when clicking on a project ⭐
 
+## ✨ Features
 
+- Infinite scrollable list with pull-to-refresh    
+- Dark theme toggle
+- ⭐Date picker
+- ⭐Project details with README fetched  
+- ⭐Open repository URL (either GitHub mobile app if installed or browser)  
+
+## 📦 Key Libraries
+
+- **Jetpack Compose**
+- **Hilt**
+- **Retrofit and OkHttp**
+- **Kotlin Coroutines**
+- **Coil**
+- **Compose Markdown**
+- **AndroidX Libraries**
+  
 ## Module structure
+
+The app follows a **multi-module** architecture with a **feature-based** module structure.
 
 ![Untitled-2025-01-25-1814](https://github.com/user-attachments/assets/54ab3236-e8e7-4e1a-bc76-3bcfd6da8286)
 
@@ -43,5 +62,6 @@ GitHub API does not provide an endpoint for trending repositories. Therefore, I 
 
 ## Error handling
 
-![errors](https://github.com/user-attachments/assets/a13ae8ff-64af-401f-ac8c-e4bbd5e529e5)
+![Errors](https://github.com/user-attachments/assets/a13ae8ff-64af-401f-ac8c-e4bbd5e529e5)
 
+⚠️Very large READMEs crashed the application, so I set a limit of 1,000 lines for the README to be displayed.
