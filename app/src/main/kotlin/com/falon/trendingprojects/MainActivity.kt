@@ -65,12 +65,12 @@ fun AppNavigation() {
     ) {
         SharedTransitionLayout {
             val navController = rememberNavController()
-            NavHost(navController, startDestination = "trendingProjects") {
-                composable("trendingProjects") { backStackEntry ->
+            NavHost(navController, startDestination = Routes.PROJECTS) {
+                composable(Routes.PROJECTS) { backStackEntry ->
                     FeedScreen(navController, this)
                 }
                 composable(
-                    "details/{$STAR_RESOURCE_ARG}",
+                    "${Routes.PROJECT_DETAIL}/{$STAR_RESOURCE_ARG}",
                     arguments = listOf(
                         navArgument(STAR_RESOURCE_ARG) { type = NavType.IntType },
                     )
