@@ -1,4 +1,4 @@
-package com.falon.feed.presentation.ui
+package com.falon.feed.presentation.projects.ui
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -28,8 +28,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.falon.feed.domain.model.TrendingProject
 import com.falon.feed.presentation.R
-import com.falon.feed.presentation.utils.encodeUrl
-import com.falon.feed.presentation.viewmodel.FeedViewModel
+import com.falon.feed.presentation.projects.viewmodel.FeedViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
@@ -116,14 +115,9 @@ fun SharedTransitionScope.FeedScreen(
                             TrendingProjectCard(
                                 project = project,
                                 onClick = {
-                                    val title =
-                                        "${project.ownerLogin} / ${project.repositoryName}".encodeUrl()
-                                    val desc = project.description.encodeUrl()
-                                    val ownerAvatarUrl = project.ownerAvatarUrl.encodeUrl()
-                                    val stars = project.stars
-                                    val id = project.id
+                                    viewModel.onTrendingProjectCardClicked(project)
                                     navController.navigate(
-                                        "details/$id/$title/$ownerAvatarUrl/$desc/$starRes/$stars"
+                                        "details/$starRes"
                                     )
                                 },
                                 starPainter = painterResource(starRes),

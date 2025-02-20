@@ -5,4 +5,7 @@
     <string name="retry">Retry</string>
     <string name="no_results">No Results Found</string>
     <string name="adjust_search">Try adjusting your search or check back later.</string>
+    <string name="exit">Exit</string>
+    <string name="stars">Stars</string>
+    <string name="readme">README</string>
 </resources>

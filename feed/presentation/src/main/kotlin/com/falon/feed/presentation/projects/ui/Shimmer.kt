@@ -1,4 +1,4 @@
-package com.falon.feed.presentation.ui
+package com.falon.feed.presentation.projects.ui
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode

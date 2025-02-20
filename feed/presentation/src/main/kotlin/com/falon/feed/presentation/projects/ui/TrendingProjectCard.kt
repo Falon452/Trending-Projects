@@ -1,4 +1,4 @@
-package com.falon.feed.presentation.ui
+package com.falon.feed.presentation.projects.ui
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -30,8 +30,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.falon.feed.domain.model.TrendingProject
-import com.falon.feed.presentation.model.ProjectSharedElementKey
-import com.falon.feed.presentation.model.ProjectSharedElementType
+import com.falon.feed.presentation.projects.model.ProjectSharedElementKey
+import com.falon.feed.presentation.projects.model.ProjectSharedElementType
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable

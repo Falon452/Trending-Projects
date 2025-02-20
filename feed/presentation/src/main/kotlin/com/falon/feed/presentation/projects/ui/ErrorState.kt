@@ -1,4 +1,4 @@
-package com.falon.feed.presentation.ui
+package com.falon.feed.presentation.projects.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

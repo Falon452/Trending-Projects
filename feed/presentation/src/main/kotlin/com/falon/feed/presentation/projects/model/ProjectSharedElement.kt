@@ -1,4 +1,4 @@
-package com.falon.feed.presentation.model
+package com.falon.feed.presentation.projects.model
 
 internal data class ProjectSharedElementKey(
     val projectId: String,
