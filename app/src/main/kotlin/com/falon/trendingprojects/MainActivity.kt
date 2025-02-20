@@ -8,23 +8,21 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.falon.feed.presentation.R
-import com.falon.feed.presentation.ui.FeedScreen
-import com.falon.feed.presentation.ui.TrendingProjectDetails
+import com.falon.feed.presentation.details.ui.TrendingProjectDetails
+import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel.Companion.STAR_RESOURCE_ARG
+import com.falon.feed.presentation.projects.ui.FeedScreen
 import com.falon.theme.AppTheme
-import com.falon.trendingprojects.utils.decodeUrl
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -72,58 +70,20 @@ fun AppNavigation() {
                     FeedScreen(navController, this)
                 }
                 composable(
-                    "details/{id}/{title}/{ownerAvatarUrl}/{description}/{starsResId}/{stars}",
+                    "details/{${STAR_RESOURCE_ARG}}}",
                     arguments = listOf(
-                        navArgument("id") {
-                            type = NavType.StringType
-                        },
-                        navArgument("title") {
-                            type = NavType.StringType
-                        },
-                        navArgument("ownerAvatarUrl") {
-                            type = NavType.StringType
-                        },
-                        navArgument("description") {
-                            type = NavType.StringType
-                        },
-                        navArgument("starsResId") {
-                            type = NavType.IntType
-                        },
-                        navArgument("stars") {
-                            type = NavType.IntType
-                        },
+                        navArgument(STAR_RESOURCE_ARG) { type = NavType.IntType },
                     )
                 ) { backStackEntry ->
-                    val args = backStackEntry.arguments
-                    val id = args?.getString("id") ?: ""
-                    val title = args?.getString("title")?.decodeUrl() ?: ""
-                    val ownerAvatarUrl = args?.getString("ownerAvatarUrl")?.decodeUrl() ?: ""
-                    val description = args?.getString("description")?.decodeUrl() ?: ""
-                    val starsResId = args?.getInt("starsResId") ?: R.drawable.star0
-                    val stars = args?.getInt("stars") ?: 0
+                    val starResource =
+                        backStackEntry.arguments?.getInt(STAR_RESOURCE_ARG) ?: R.drawable.star0
                     TrendingProjectDetails(
-                        id = id,
-                        title = title,
-                        ownerAvatarUrl = ownerAvatarUrl,
-                        description = description,
-                        starsResId = starsResId,
-                        stars = stars,
+                        starResource = starResource,
                         animatedVisibilityScope = this,
                         onExit = { navController.popBackStack() }
                     )
                 }
             }
-        }
-    }
-}
-
-@OptIn(ExperimentalSharedTransitionApi::class)
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AppTheme {
-        SharedTransitionScope {
-//            FeedScreen(rememberNavController())
         }
     }
 }
