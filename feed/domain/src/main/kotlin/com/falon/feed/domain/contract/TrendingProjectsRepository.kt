@@ -12,4 +12,13 @@ interface TrendingProjectsRepository {
         afterCreatedDate: LocalDateTime,
         stars: Int
     ): Flow<PagingData<TrendingProject>>
+
+    suspend fun getReadmeContent(
+        owner: String,
+        repo: String,
+    ): String?
+
+    fun saveSelected(project: TrendingProject)
+    fun clearSelectedProject()
+    fun getSelectedProject(): TrendingProject?
 }
