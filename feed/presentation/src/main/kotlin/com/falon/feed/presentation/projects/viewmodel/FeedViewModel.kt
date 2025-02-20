@@ -19,14 +19,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
-import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
 
@@ -43,7 +41,7 @@ class FeedViewModel @Inject constructor(
         MutableStateFlow<PagingData<TrendingProject>>(PagingData.empty())
     val trendingProjects: StateFlow<PagingData<TrendingProject>> = _trendingProjects
 
-    private val _state = MutableStateFlow<ProjectsState>(ProjectsState())
+    private val _state = MutableStateFlow(ProjectsState())
     val viewState: StateFlow<ProjectsViewState> =
         _state.map(viewStateMapper::from)
             .flowOn(Dispatchers.Default)
@@ -55,7 +53,7 @@ class FeedViewModel @Inject constructor(
 
     init {
         observeDarkMode()
-        observeAfterCreatedDateChanges()
+        loadPagedTrendingProjects()
     }
 
     private fun observeDarkMode() {
@@ -67,21 +65,15 @@ class FeedViewModel @Inject constructor(
         }
     }
 
-    private fun observeAfterCreatedDateChanges() {
+    private fun loadPagedTrendingProjects() {
         viewModelScope.launch(ioDispatcher) {
-            _state.map { it.afterCreatedDate }
-                .distinctUntilChanged()
-                .collectLatest(::loadPagedTrendingProjects)
+            _trendingProjects.update { PagingData.empty() }
+            observeTrendingProjectsUseCase.execute(afterCreatedDate = _state.value.afterCreatedDate)
+                .cachedIn(viewModelScope)
+                .collectLatest { pagingData ->
+                    _trendingProjects.update { pagingData }
+                }
         }
-    }
-
-    private suspend fun loadPagedTrendingProjects(afterCreatedDate: LocalDateTime) {
-        _trendingProjects.update { PagingData.empty() }
-        observeTrendingProjectsUseCase.execute(afterCreatedDate)
-            .cachedIn(viewModelScope)
-            .collectLatest { pagingData ->
-                _trendingProjects.update { pagingData }
-            }
     }
 
     fun onTrendingProjectCardClicked(project: TrendingProject) {
@@ -90,7 +82,7 @@ class FeedViewModel @Inject constructor(
         }
     }
 
-    fun toggleTheme() {
+    fun onToggleTheme() {
         viewModelScope.launch(ioDispatcher) {
             themePreferences.saveDarkMode(!_state.value.isDarkMode)
         }
@@ -113,7 +105,14 @@ class FeedViewModel @Inject constructor(
             val localDateTime = Instant.ofEpochMilli(millis)
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime()
-            _state.update { it.copy(afterCreatedDate = localDateTime) }
+
+            if (localDateTime.toLocalDate() != _state.value.afterCreatedDate.toLocalDate()) {
+                _state.update {
+                    it.copy(afterCreatedDate = localDateTime)
+                }
+
+                loadPagedTrendingProjects()
+            }
         }
     }
 }

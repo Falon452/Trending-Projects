@@ -78,7 +78,7 @@ fun SharedTransitionScope.FeedScreen(
                 actions = {
                     Switch(
                         checked = state.value.isDarkMode,
-                        onCheckedChange = { viewModel.toggleTheme() }
+                        onCheckedChange = { viewModel.onToggleTheme() }
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     IconButton(onClick = {
