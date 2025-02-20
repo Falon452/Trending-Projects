@@ -43,5 +43,6 @@ GitHub API does not provide an endpoint for trending repositories. Therefore, I 
 
 ## Error handling
 
-![errors](https://github.com/user-attachments/assets/a13ae8ff-64af-401f-ac8c-e4bbd5e529e5)
+![Errors](https://github.com/user-attachments/assets/a13ae8ff-64af-401f-ac8c-e4bbd5e529e5)
 
+⚠️Very large READMEs crashed the application, so I set a limit of 1,000 lines for the README to be displayed.
