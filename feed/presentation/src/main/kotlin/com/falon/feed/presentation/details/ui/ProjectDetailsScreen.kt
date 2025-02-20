@@ -34,6 +34,7 @@ import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel
 import com.falon.feed.presentation.projects.model.ProjectSharedElementKey
 import com.falon.feed.presentation.projects.model.ProjectSharedElementType
 import com.falon.feed.presentation.projects.ui.AvatarImage
+import com.falon.feed.presentation.projects.ui.ErrorState
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -45,8 +46,8 @@ fun SharedTransitionScope.ProjectDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: ProjectDetailsViewModel = hiltViewModel<ProjectDetailsViewModel>(),
 ) {
-    val projectDetailsState by viewModel.projectDetails.collectAsState()
-    val trendingProject = projectDetailsState.selectedProject
+    val state by viewModel.viewState.collectAsState()
+    val trendingProject = state.selectedProject
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -67,11 +68,22 @@ fun SharedTransitionScope.ProjectDetailsScreen(
             )
             HorizontalDivider()
             Spacer(modifier = Modifier.height(8.dp))
-            MarkdownText(
-                markdown = projectDetailsState.readmeContent ?: "",
-                syntaxHighlightColor = Color.Transparent,
-                style = MaterialTheme.typography.bodyLarge,
-            )
+            if (state.isReadmeErrorVisible) {
+                ErrorState(
+                    onRefresh = {
+                        viewModel.onRefresh()
+                    },
+                    painter = painterResource(R.drawable.no_wifi_icon),
+                    reasonText = stringResource(R.string.something_went_wrong),
+                    tryAgainText = stringResource(R.string.try_again),
+                )
+            } else {
+                MarkdownText(
+                    markdown = state.readmeContent,
+                    syntaxHighlightColor = Color.Transparent,
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
             Spacer(modifier = Modifier.height(64.dp))
         }
 

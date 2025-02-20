@@ -2,9 +2,9 @@ package com.falon.feed.presentation.details.model
 
 import com.falon.feed.domain.model.TrendingProject
 
-data class ProjectDetailsState(
+data class ProjectDetailsViewState(
     val starsResId: Int,
     val selectedProject: TrendingProject,
-    val readmeContent: String?,
-    val loadingReadmeFailed: Boolean,
+    val isReadmeErrorVisible: Boolean,
+    val readmeContent: String,
 )

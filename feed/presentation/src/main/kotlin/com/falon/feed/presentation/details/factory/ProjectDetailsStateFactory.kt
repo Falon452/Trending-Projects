@@ -17,7 +17,8 @@ class ProjectDetailsStateFactory @Inject constructor(
         ProjectDetailsState(
             starsResId = savedStateHandle[STAR_RESOURCE_ARG] ?: R.drawable.star0,
             selectedProject = getSelectedTrendingProjectsUseCase.execute() ?: emptyProject(),
-            readmeContent = null
+            readmeContent = null,
+            loadingReadmeFailed = false,
         )
 
     private fun emptyProject(): TrendingProject = TrendingProject(
