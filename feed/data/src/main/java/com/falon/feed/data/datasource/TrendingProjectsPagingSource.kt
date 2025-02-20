@@ -3,8 +3,8 @@ package com.falon.feed.data.datasource
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.falon.feed.data.datasource.GitHubApi.GitHubQuery
 import com.falon.feed.data.mapper.TrendingProjectMapper
+import com.falon.feed.data.model.GitHubQuery
 import com.falon.feed.domain.model.TrendingProject
 
 internal class TrendingProjectsPagingSource(

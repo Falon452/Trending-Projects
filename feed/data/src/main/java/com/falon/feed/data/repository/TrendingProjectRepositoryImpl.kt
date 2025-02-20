@@ -5,10 +5,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.falon.feed.data.datasource.GitHubApi
-import com.falon.feed.data.datasource.GitHubApi.GitHubQuery
 import com.falon.feed.data.datasource.MemoryCache
 import com.falon.feed.data.datasource.TrendingProjectsPagingSource
 import com.falon.feed.data.mapper.TrendingProjectMapper
+import com.falon.feed.data.model.GitHubQuery
 import com.falon.feed.domain.contract.TrendingProjectsRepository
 import com.falon.feed.domain.model.TrendingProject
 import kotlinx.coroutines.flow.Flow

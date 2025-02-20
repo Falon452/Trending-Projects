@@ -1,13 +1,12 @@
 package com.falon.feed.data.datasource
 
+import com.falon.feed.data.model.GitHubQuery
 import com.falon.feed.data.model.GitHubSearchResponse
 import com.falon.feed.data.model.ReadmeResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 internal interface GitHubApi {
 
@@ -26,16 +25,4 @@ internal interface GitHubApi {
         @Path("owner") owner: String,
         @Path("repo") repo: String
     ): ReadmeResponse
-
-    data class GitHubQuery(
-        val createdAfter: LocalDateTime,
-        val minStars: Int
-    ) {
-
-        override fun toString(): String {
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val date = createdAfter.format(formatter)
-            return "created:>$date+stars:>$minStars"
-        }
-    }
 }
