@@ -15,14 +15,12 @@ import javax.inject.Singleton
 object RetrofitModule {
 
     @Provides
-    @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
     @Provides
-    @Singleton
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
