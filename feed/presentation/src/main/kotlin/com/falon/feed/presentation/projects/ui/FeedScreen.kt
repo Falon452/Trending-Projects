@@ -126,7 +126,7 @@ fun SharedTransitionScope.FeedScreen(
                 }
             }
 
-            projects.loadState.refresh is Error && projects.itemCount == 0 -> {
+            projects.loadState.refresh is Error -> {
                 ErrorState(
                     modifier = modifier.padding(padding),
                     onRefresh = {
