@@ -1,4 +1,4 @@
-package com.falon.trendingprojects.di
+package com.falon.feed.data.di
 
 import dagger.Module
 import dagger.Provides

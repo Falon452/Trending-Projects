@@ -56,9 +56,6 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.gson)
-    implementation(libs.okhttp.logging)
     testImplementation(libs.junit)
     debugImplementation(libs.androidx.ui.tooling)
 }

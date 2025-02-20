@@ -24,6 +24,7 @@ dependencies {
     implementation(project(":feed:domain"))
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
+    implementation(libs.okhttp.logging)
     implementation(libs.hilt.android)
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
