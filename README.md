@@ -8,14 +8,6 @@
 
 ## Error handling
 
-### No internet
-![noItemsCantFetch](https://github.com/user-attachments/assets/6ca8f1fc-b2f1-47b8-8594-4c1c60e1be55){:width="600px"}
-
-### No results
-![Screenshot_20250220-193411 (1)](https://github.com/user-attachments/assets/2923082e-f772-458c-bd94-004a9c6334cb){:width="600px"}
-
-### Can't fetch README
-![Screenshot_20250220-193439 (1)](https://github.com/user-attachments/assets/d3e6eb01-dd78-49bb-a768-5cb97be44c1e){:width="600px"}
-
+![errors](https://github.com/user-attachments/assets/a13ae8ff-64af-401f-ac8c-e4bbd5e529e5)
 
 ## Animations
