@@ -7,8 +7,8 @@ import androidx.paging.cachedIn
 import com.falon.feed.domain.model.TrendingProject
 import com.falon.feed.domain.usecase.ObserveTrendingProjectsUseCase
 import com.falon.feed.domain.usecase.SaveSelectedTrendingProjectsUseCase
+import com.falon.theme.ThemePreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -19,14 +19,19 @@ import javax.inject.Inject
 class FeedViewModel @Inject constructor(
     private val observeTrendingProjectsUseCase: ObserveTrendingProjectsUseCase,
     private val saveSelectedTrendingProjectsUseCase: SaveSelectedTrendingProjectsUseCase,
+    private val themePreferences: ThemePreferences,
 ) : ViewModel() {
 
     private val _trendingProjects =
         MutableStateFlow<PagingData<TrendingProject>>(PagingData.empty())
     val trendingProjects: StateFlow<PagingData<TrendingProject>> = _trendingProjects
 
+    private val _darkMode = MutableStateFlow<Boolean>(false)
+    val darkMode: StateFlow<Boolean> = _darkMode
+
     init {
         loadPagedTrendingProjects()
+        observeDarkMode()
     }
 
     private fun loadPagedTrendingProjects() {
@@ -39,9 +44,24 @@ class FeedViewModel @Inject constructor(
         }
     }
 
+    private fun observeDarkMode() {
+        viewModelScope.launch {
+            themePreferences.observeIsDarkMode()
+                .collectLatest { isDarkMode ->
+                    _darkMode.value = isDarkMode
+                }
+        }
+    }
+
     fun onTrendingProjectCardClicked(project: TrendingProject) {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch {
             saveSelectedTrendingProjectsUseCase.execute(project)
+        }
+    }
+
+    fun toggleTheme() {
+        viewModelScope.launch {
+            themePreferences.saveDarkMode(!_darkMode.value)
         }
     }
 }

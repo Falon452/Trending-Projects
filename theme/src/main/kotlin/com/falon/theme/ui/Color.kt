@@ -1,4 +1,4 @@
-package com.falon.theme
+package com.falon.theme.ui
 
 import androidx.compose.ui.graphics.Color
 

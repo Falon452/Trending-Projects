@@ -38,7 +38,7 @@ import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.TrendingProjectDetails(
+fun SharedTransitionScope.ProjectDetailsScreen(
     starResource: Int,
     animatedVisibilityScope: AnimatedVisibilityScope,
     onExit: () -> Unit,
@@ -94,13 +94,14 @@ fun SharedTransitionScope.TrendingProjectDetails(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.LogoAndNameCard(
+private fun SharedTransitionScope.LogoAndNameCard(
     project: TrendingProject,
     animatedVisibilityScope: AnimatedVisibilityScope,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clickable {
                 val intent = Intent(
@@ -170,13 +171,14 @@ fun SharedTransitionScope.LogoAndNameCard(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DescriptionAndStarsCard(
+private fun SharedTransitionScope.DescriptionAndStarsCard(
     starResource: Int,
     projectDetails: TrendingProject,
     animatedVisibilityScope: AnimatedVisibilityScope,
+    modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
