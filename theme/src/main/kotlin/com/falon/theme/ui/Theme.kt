@@ -87,7 +87,7 @@ private val darkScheme = darkColorScheme(
 @Composable
 fun AppTheme(
     themeViewModel: ThemeViewModel = hiltViewModel(),
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit
 ) {
     val isDarkTheme = themeViewModel.isDarkTheme.collectAsStateWithLifecycle()
     val colorScheme = if (isDarkTheme.value) darkScheme else lightScheme
