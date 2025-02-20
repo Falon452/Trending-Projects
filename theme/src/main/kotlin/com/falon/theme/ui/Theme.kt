@@ -4,6 +4,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.falon.theme.viewmodel.ThemeViewModel
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -83,10 +86,11 @@ private val darkScheme = darkColorScheme(
 
 @Composable
 fun AppTheme(
-    isDarkMode: Boolean,
-    content: @Composable() () -> Unit,
+    themeViewModel: ThemeViewModel = hiltViewModel(),
+    content: @Composable() () -> Unit
 ) {
-    val colorScheme = if (isDarkMode) darkScheme else lightScheme
+    val isDarkTheme = themeViewModel.isDarkTheme.collectAsStateWithLifecycle()
+    val colorScheme = if (isDarkTheme.value) darkScheme else lightScheme
 
     MaterialTheme(
         colorScheme = colorScheme,

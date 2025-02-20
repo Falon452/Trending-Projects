@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -21,27 +20,20 @@ import androidx.navigation.navArgument
 import com.falon.feed.presentation.details.ui.ProjectDetailsScreen
 import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel.Companion.STAR_RESOURCE_ARG
 import com.falon.feed.presentation.projects.ui.FeedScreen
-import com.falon.theme.ThemePreferences
 import com.falon.theme.ui.AppTheme
 import com.falon.trendingprojects.util.shrinkAndFadeAnimationRun
 import dagger.hilt.android.AndroidEntryPoint
-import jakarta.inject.Inject
 import com.falon.feed.presentation.R as FeedR
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    @Inject
-    lateinit var themePreferences: ThemePreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupSplashScreen()
         enableEdgeToEdge()
         setContent {
-            val darkMode =
-                themePreferences.observeIsDarkMode().collectAsState(initial = false)
-            AppTheme(darkMode.value) {
+            AppTheme {
                 AppNavigation()
             }
         }
