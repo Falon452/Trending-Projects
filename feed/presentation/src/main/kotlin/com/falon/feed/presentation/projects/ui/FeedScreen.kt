@@ -67,6 +67,7 @@ fun SharedTransitionScope.FeedScreen(
                 title = { Text(stringResource(R.string.trending_projects)) },
                 actions = {
                     Switch(
+                        modifier = modifier.padding(end = 8.dp),
                         checked = darkMode.value,
                         onCheckedChange = { viewModel.toggleTheme() }
                     )
