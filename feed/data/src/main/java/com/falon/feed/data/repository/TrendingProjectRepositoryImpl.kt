@@ -51,6 +51,7 @@ internal class TrendingProjectRepositoryImpl @Inject constructor(
         return try {
             val readmeResponse = gitHubApi.getReadme(owner, repo)
             val stringBuilder = StringBuilder()
+            if (readmeResponse.content == null) return null
             when (readmeResponse.encoding) {
                 "base64" -> {
                     readmeResponse.content.split("\n").asSequence().take(MAX_LINES).forEach {
