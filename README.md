@@ -30,10 +30,20 @@ GitHub API does not provide an endpoint for trending repositories. Therefore, I 
 
 - 🚀 **Splash Screen Animation**: Shrink + Fade Out ✨  
 - 🌗 **Shimmers**: Supports both **dark mode** & **light mode** 💡  
-- 🔄 **[Shared Element Transition](https://developer.android.com/develop/ui/compose/animation/shared-elements)**: Smooth animation when clicking on a project 🎬  
+- ⭐🔄 **[Shared Element Transition](https://developer.android.com/develop/ui/compose/animation/shared-elements)**: Smooth animation when clicking on a project 🎬⭐
+
+## ✨ Features
+
+- 🌀 Infinite scrollable list with pull-to-refresh  
+- 📅 Date picker  
+- 🌙 Dark theme toggle  
+- 📄 Project details with README fetched  
+- 🔗 Open repository URL (either GitHub mobile app if installed or browser)  
 
 
 ## Module structure
+
+The app follows a **multi-module** architecture with a **feature-based** module structure.
 
 ![Untitled-2025-01-25-1814](https://github.com/user-attachments/assets/54ab3236-e8e7-4e1a-bc76-3bcfd6da8286)
 
