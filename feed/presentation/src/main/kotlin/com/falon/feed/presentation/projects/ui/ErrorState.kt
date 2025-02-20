@@ -21,8 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.falon.feed.presentation.R
 
@@ -92,4 +94,16 @@ fun ErrorState(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun ErrorStatePreview() {
+    ErrorState(
+        modifier = Modifier,
+        onRefresh = {},
+        painter = painterResource(R.drawable.search),
+        reasonText = stringResource(R.string.no_results),
+        tryAgainText = stringResource(R.string.adjust_search)
+    )
 }

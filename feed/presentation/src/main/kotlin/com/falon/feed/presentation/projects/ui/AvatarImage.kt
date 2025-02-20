@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.falon.feed.presentation.R
@@ -33,4 +34,10 @@ fun AvatarImage(
             error = painterResource(R.drawable.avatar_error)
         )
     }
+}
+
+@Preview
+@Composable
+fun AvatarImagePreview() {
+    AvatarImage(imageUrl = "")
 }
