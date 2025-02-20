@@ -11,14 +11,12 @@ class ObserveTrendingProjectsUseCase @Inject constructor(
     private val trendingProjectsRepository: TrendingProjectsRepository,
 ) {
 
-    fun execute(): Flow<PagingData<TrendingProject>> =
+    fun execute(afterCreatedDate: LocalDateTime): Flow<PagingData<TrendingProject>> =
         trendingProjectsRepository.observe(
             pageSize = PAGE_SIZE,
-            afterCreatedDate = sevenDaysAgo(),
+            afterCreatedDate = afterCreatedDate,
             stars = MINIMUM_STARS,
         )
-
-    private fun sevenDaysAgo(): LocalDateTime = LocalDateTime.now().minusDays(7L)
 
     private companion object {
 
