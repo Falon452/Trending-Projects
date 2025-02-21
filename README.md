@@ -4,7 +4,8 @@ Java 17 or Java 21
 
 ## Demo
 
-https://github.com/user-attachments/assets/213dfdc7-eb2a-47b2-8406-a4da7d2a6311
+https://github.com/user-attachments/assets/232bd6b1-ccfb-4307-bb13-ddfb3aadcd6e
+
 
 ## Requirements
 
