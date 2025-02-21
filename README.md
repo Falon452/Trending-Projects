@@ -23,14 +23,14 @@ GitHub API does not provide an endpoint for trending repositories. Therefore, I 
 
 The code is unit tested using JUnit 5 and MockK.
 
+**Adhered to Material Design 3.**  
+
 ### Project Details display the following information:  
 - **Number of stars**  
 - **Owner name**  
 - **Repository name**  
 - **Description**  
 - ⭐ **README.md** 
-
-**Adhered to Material Design 3.**  
 
 ##  Animations 
 
