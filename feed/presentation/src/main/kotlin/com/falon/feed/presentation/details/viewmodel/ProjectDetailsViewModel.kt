@@ -33,7 +33,6 @@ class ProjectDetailsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(stateFactory.create())
-
     @VisibleForTesting
     val state get() = _state.value
     val viewState: StateFlow<ProjectDetailsViewState> =

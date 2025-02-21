@@ -84,7 +84,7 @@ class ProjectDetailsViewModelTest {
     }
 
     @Test
-    fun `When viewmodel is created, then loads readme`() = runTest {
+    fun `WHEN viewmodel is created, THEN loads readme`() = runTest {
         val expectedReadme = "Test Readme Content"
         val owner = "Falon452"
         val repository = "Trending Project"
@@ -109,7 +109,7 @@ class ProjectDetailsViewModelTest {
     }
 
     @Test
-    fun `When on exit project details, then clears selected project`() = runTest {
+    fun `WHEN on exit project details, THEN clears selected project`() = runTest {
         createViewModel().onExitProjectDetails()
         advanceUntilIdle()
 
@@ -117,7 +117,7 @@ class ProjectDetailsViewModelTest {
     }
 
     @Test
-    fun `When on refresh, then reloads readme`() = runTest {
+    fun `WHEN on refresh, THEN reloads readme`() = runTest {
         val initialReadme = "Initial Readme Content"
         val refreshedReadme = "Refreshed Readme Content"
         val owner = "Falon452"
@@ -147,7 +147,7 @@ class ProjectDetailsViewModelTest {
     }
 
     @Test
-    fun `When on refresh and getting readme fails, then loadingReadmeFailed is true`() = runTest {
+    fun `WHEN on refresh and getting readme fails, THEN loadingReadmeFailed is true`() = runTest {
         val initialReadme = "Initial Readme Content"
         val owner = "Falon452"
         val repository = "Trending Project"

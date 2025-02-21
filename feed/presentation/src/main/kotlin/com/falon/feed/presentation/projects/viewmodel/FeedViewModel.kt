@@ -1,5 +1,6 @@
 package com.falon.feed.presentation.projects.viewmodel
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -7,6 +8,7 @@ import androidx.paging.cachedIn
 import com.falon.feed.domain.model.TrendingProject
 import com.falon.feed.domain.usecase.ObserveTrendingProjectsUseCase
 import com.falon.feed.domain.usecase.SaveSelectedTrendingProjectsUseCase
+import com.falon.feed.presentation.di.DefaultDispatcher
 import com.falon.feed.presentation.di.IoDispatcher
 import com.falon.feed.presentation.projects.mapper.ProjectsViewStateMapper
 import com.falon.feed.presentation.projects.model.ProjectsState
@@ -14,7 +16,6 @@ import com.falon.feed.presentation.projects.model.ProjectsViewState
 import com.falon.theme.ThemePreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -35,6 +36,7 @@ class FeedViewModel @Inject constructor(
     private val themePreferences: ThemePreferences,
     viewStateMapper: ProjectsViewStateMapper,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _trendingProjects =
@@ -42,9 +44,11 @@ class FeedViewModel @Inject constructor(
     val trendingProjects: StateFlow<PagingData<TrendingProject>> = _trendingProjects
 
     private val _state = MutableStateFlow(ProjectsState())
+    @VisibleForTesting
+    val state: ProjectsState get() = _state.value
     val viewState: StateFlow<ProjectsViewState> =
         _state.map(viewStateMapper::from)
-            .flowOn(Dispatchers.Default)
+            .flowOn(defaultDispatcher)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(0),
