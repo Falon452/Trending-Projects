@@ -77,5 +77,6 @@ class ProjectDetailsViewModel @Inject constructor(
     companion object {
 
         const val STAR_RESOURCE_ARG = "starsResource"
+        const val PROJECT_ID = "projectId"
     }
 }

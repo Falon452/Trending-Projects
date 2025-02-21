@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.falon.feed.presentation.details.ui.ProjectDetailsScreen
+import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel.Companion.PROJECT_ID
 import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel.Companion.STAR_RESOURCE_ARG
 import com.falon.feed.presentation.projects.ui.FeedScreen
 import com.falon.theme.ui.AppTheme
@@ -64,8 +65,9 @@ fun AppNavigation() {
                     FeedScreen(navController, this)
                 }
                 composable(
-                    "${Routes.PROJECT_DETAIL}/{$STAR_RESOURCE_ARG}",
+                    "${Routes.PROJECT_DETAIL}/{$PROJECT_ID}/{$STAR_RESOURCE_ARG}",
                     arguments = listOf(
+                        navArgument(PROJECT_ID) { type = NavType.StringType },
                         navArgument(STAR_RESOURCE_ARG) { type = NavType.IntType },
                     )
                 ) { backStackEntry ->

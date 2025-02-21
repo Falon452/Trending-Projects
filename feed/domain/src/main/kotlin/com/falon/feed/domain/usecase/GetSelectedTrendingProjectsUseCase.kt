@@ -8,6 +8,6 @@ class GetSelectedTrendingProjectsUseCase @Inject constructor(
     private val trendingProjectsRepository: TrendingProjectsRepository,
 ) {
 
-    fun execute(): TrendingProject? =
-        trendingProjectsRepository.getSelectedProject()
+    fun execute(selectedId: String): TrendingProject? =
+        trendingProjectsRepository.getSelectedProject(selectedId)
 }

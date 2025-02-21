@@ -20,5 +20,5 @@ interface TrendingProjectsRepository {
 
     fun saveSelected(project: TrendingProject)
     fun clearSelectedProject()
-    fun getSelectedProject(): TrendingProject?
+    fun getSelectedProject(selectedId: String): TrendingProject?
 }

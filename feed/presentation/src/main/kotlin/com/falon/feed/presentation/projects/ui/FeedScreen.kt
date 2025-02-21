@@ -202,7 +202,7 @@ private fun SharedTransitionScope.LoadedState(
                             onClick = {
                                 viewModel.onTrendingProjectCardClicked(project)
                                 navController.navigate(
-                                    "details/$starRes"
+                                    "details/${project.id}/$starRes"
                                 )
                             },
                             starPainter = painterResource(starRes),

@@ -81,8 +81,14 @@ internal class TrendingProjectRepositoryImpl @Inject constructor(
         memoryCache.selectedTrendingProject = null
     }
 
-    override fun getSelectedProject(): TrendingProject? =
-        memoryCache.selectedTrendingProject
+    override fun getSelectedProject(selectedId: String): TrendingProject? {
+        val cache = memoryCache.selectedTrendingProject
+        return if (selectedId == cache?.id) {
+            cache
+        } else {
+            null
+        }
+    }
 
     private companion object {
 

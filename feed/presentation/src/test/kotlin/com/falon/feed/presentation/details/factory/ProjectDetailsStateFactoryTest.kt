@@ -5,6 +5,7 @@ import com.falon.feed.domain.model.TrendingProject
 import com.falon.feed.domain.usecase.GetSelectedTrendingProjectsUseCase
 import com.falon.feed.presentation.R
 import com.falon.feed.presentation.details.model.ProjectDetailsState
+import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel.Companion.PROJECT_ID
 import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel.Companion.STAR_RESOURCE_ARG
 import io.mockk.every
 import io.mockk.mockk
@@ -29,9 +30,11 @@ class ProjectDetailsStateFactoryTest {
             stars = 100,
             description = "Test description"
         )
+        val selectedId = "1234"
 
+        every { mockSavedStateHandle.get<String>(PROJECT_ID) } returns selectedId
         every { mockSavedStateHandle.get<Int>(STAR_RESOURCE_ARG) } returns R.drawable.star1
-        every { mockGetSelectedTrendingProjectsUseCase.execute() } returns trendingProject
+        every { mockGetSelectedTrendingProjectsUseCase.execute(selectedId) } returns trendingProject
 
         val result = factory.create()
 
@@ -56,9 +59,11 @@ class ProjectDetailsStateFactoryTest {
             stars = 100,
             description = "Test description"
         )
+        val selectedId = "18"
 
+        every { mockSavedStateHandle.get<String>(PROJECT_ID) } returns selectedId
         every { mockSavedStateHandle.get<Int>(STAR_RESOURCE_ARG) } returns null
-        every { mockGetSelectedTrendingProjectsUseCase.execute() } returns trendingProject
+        every { mockGetSelectedTrendingProjectsUseCase.execute(selectedId) } returns trendingProject
 
         val result = factory.create()
 
@@ -73,8 +78,11 @@ class ProjectDetailsStateFactoryTest {
 
     @Test
     fun `WHEN create is called with null selected project, THEN it returns empty project`() {
+        val selectedId = "19"
+
+        every { mockSavedStateHandle.get<String>(PROJECT_ID) } returns selectedId
         every { mockSavedStateHandle.get<Int>(STAR_RESOURCE_ARG) } returns R.drawable.star0
-        every { mockGetSelectedTrendingProjectsUseCase.execute() } returns null
+        every { mockGetSelectedTrendingProjectsUseCase.execute(selectedId) } returns null
 
         val result = factory.create()
 
