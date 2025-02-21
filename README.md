@@ -2,6 +2,10 @@
 
 Java 17 or Java 21
 
+## Demo
+
+https://github.com/user-attachments/assets/213dfdc7-eb2a-47b2-8406-a4da7d2a6311
+
 ## Requirments
 
 > The project's objective is to list trending projects from GitHub ✅, allow users to tap on one of them ✅, and display their details ✅. You are free to choose the appearance of the app, but adhering to Android's Material Design guidelines is highly encouraged✅. The better the app looks, the better!✅
@@ -63,5 +67,5 @@ The app follows a **multi-module** architecture with a **feature-based** module 
 ## Error handling
 
 ![Errors](https://github.com/user-attachments/assets/a13ae8ff-64af-401f-ac8c-e4bbd5e529e5)
-
 ⚠️Very large READMEs crashed the application, so I set a limit of 1,000 lines for the README to be displayed.
+⚠️The GitHub API may block a user if they make too many requests. While the API allows authenticated users to make more requests, I kept it simple, and it works as expected without authentication
