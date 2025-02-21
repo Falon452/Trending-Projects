@@ -30,6 +30,10 @@ android {
     }
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 dependencies {
     implementation(project(":feed:domain"))
     implementation(project(":theme"))
@@ -48,5 +52,10 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.compose.markdown)
     debugImplementation(libs.androidx.ui.tooling.preview)
-    testImplementation(libs.junit)
+    testImplementation(libs.junit5.api)
+    testImplementation(libs.junit5.params)
+    testRuntimeOnly(libs.junit5.engine)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.kotlin.test)
 }

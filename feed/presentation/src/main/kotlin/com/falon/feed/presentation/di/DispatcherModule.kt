@@ -17,8 +17,17 @@ internal object DispatcherModule {
     @Singleton
     @IoDispatcher
     fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Provides
+    @Singleton
+    @DefaultDispatcher
+    fun provideDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
 }
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 internal annotation class IoDispatcher
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+internal annotation class DefaultDispatcher

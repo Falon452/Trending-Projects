@@ -1,5 +1,6 @@
 package com.falon.feed.presentation.details.viewmodel
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.falon.feed.domain.usecase.ClearSelectedTrendingProjectsUseCase
@@ -7,10 +8,10 @@ import com.falon.feed.domain.usecase.GetReadmeUseCase
 import com.falon.feed.presentation.details.factory.ProjectDetailsStateFactory
 import com.falon.feed.presentation.details.mapper.ProjectsDetailsViewStateMapper
 import com.falon.feed.presentation.details.model.ProjectDetailsViewState
+import com.falon.feed.presentation.di.DefaultDispatcher
 import com.falon.feed.presentation.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -28,13 +29,17 @@ class ProjectDetailsViewModel @Inject constructor(
     stateFactory: ProjectDetailsStateFactory,
     viewStateMapper: ProjectsDetailsViewStateMapper,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(stateFactory.create())
+
+    @VisibleForTesting
+    val state get() = _state.value
     val viewState: StateFlow<ProjectDetailsViewState> =
         _state
             .map(viewStateMapper::from)
-            .flowOn(Dispatchers.Default)
+            .flowOn(defaultDispatcher)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(0),
@@ -61,7 +66,9 @@ class ProjectDetailsViewModel @Inject constructor(
     }
 
     fun onExitProjectDetails() {
-        clearSelectedTrendingProjectsUseCase.execute()
+        viewModelScope.launch(defaultDispatcher) {
+            clearSelectedTrendingProjectsUseCase.execute()
+        }
     }
 
     fun onRefresh() {
