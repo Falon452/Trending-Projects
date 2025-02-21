@@ -1,4 +1,4 @@
-## Instalation
+## Installation
 
 Java 17 or Java 21
 
@@ -6,7 +6,7 @@ Java 17 or Java 21
 
 https://github.com/user-attachments/assets/213dfdc7-eb2a-47b2-8406-a4da7d2a6311
 
-## Requirments
+## Requirements
 
 > The project's objective is to list trending projects from GitHub ✅, allow users to tap on one of them ✅, and display their details ✅. You are free to choose the appearance of the app, but adhering to Android's Material Design guidelines is highly encouraged✅. The better the app looks, the better!✅
 - > Requirements Language: Write your application in Kotlin. ✅
