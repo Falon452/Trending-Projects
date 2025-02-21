@@ -21,6 +21,8 @@ The **default creation date** is **one week ago**.
 
 GitHub API does not provide an endpoint for trending repositories. Therefore, I made the assumption that **repositories with over 100 stars** are considered trending.  
 
+The code is unit tested using JUnit 5 and MockK.
+
 ### Project Details display the following information:  
 - **Number of stars**  
 - **Owner name**  
@@ -53,6 +55,7 @@ GitHub API does not provide an endpoint for trending repositories. Therefore, I 
 - **Coil**
 - **Compose Markdown**
 - **AndroidX Libraries**
+- **Junit 5, mockk**
   
 ## Module structure
 
