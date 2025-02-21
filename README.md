@@ -71,4 +71,5 @@ The app follows a **multi-module** architecture with a **feature-based** module 
 
 ![Errors](https://github.com/user-attachments/assets/a13ae8ff-64af-401f-ac8c-e4bbd5e529e5)
 ⚠️Very large READMEs crashed the application, so I set a limit of 1,000 lines for the README to be displayed.
+
 ⚠️The GitHub API may block a user if they make too many requests. While the API allows authenticated users to make more requests, I kept it simple, and it works as expected without authentication
