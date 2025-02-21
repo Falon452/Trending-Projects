@@ -12,6 +12,10 @@ java {
     }
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     namespace = "com.falon.theme"
@@ -31,6 +35,12 @@ android {
         kapt(libs.hilt.compiler)
         implementation(libs.datastore.preferences)
         implementation(libs.androidx.core.ktx)
+        testImplementation(libs.junit5.api)
+        testImplementation(libs.junit5.params)
+        testRuntimeOnly(libs.junit5.engine)
+        testImplementation(libs.mockk)
+        testImplementation(libs.coroutines.test)
+        testImplementation(libs.kotlin.test)
     }
 
     buildFeatures {

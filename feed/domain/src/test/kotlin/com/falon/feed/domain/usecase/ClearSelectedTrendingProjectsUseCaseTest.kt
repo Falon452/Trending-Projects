@@ -15,6 +15,6 @@ class ClearSelectedTrendingProjectsUseCaseTest {
     fun `WHEN execute is called, THEN clearSelectedProject is invoked on repository`() {
         useCase.execute()
 
-        verify { mockTrendingProjectsRepository.clearSelectedProject() }
+        verify(exactly = 1) { mockTrendingProjectsRepository.clearSelectedProject() }
     }
 }
