@@ -9,8 +9,8 @@ import com.falon.feed.data.datasource.MemoryCache
 import com.falon.feed.data.datasource.TrendingProjectsPagingSource
 import com.falon.feed.data.mapper.TrendingProjectMapper
 import com.falon.feed.data.model.GitHubQuery
-import com.falon.feed.domain.contract.TrendingProjectsRepository
 import com.falon.feed.domain.model.TrendingProject
+import com.falon.feed.domain.repository.TrendingProjectsRepository
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 import javax.inject.Inject

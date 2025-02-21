@@ -2,7 +2,7 @@ package com.falon.feed.data.di
 
 import com.falon.feed.data.datasource.GitHubApi
 import com.falon.feed.data.repository.TrendingProjectRepositoryImpl
-import com.falon.feed.domain.contract.TrendingProjectsRepository
+import com.falon.feed.domain.repository.TrendingProjectsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

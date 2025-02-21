@@ -1,4 +1,4 @@
-package com.falon.feed.domain.contract
+package com.falon.feed.domain.repository
 
 import androidx.paging.PagingData
 import com.falon.feed.domain.model.TrendingProject

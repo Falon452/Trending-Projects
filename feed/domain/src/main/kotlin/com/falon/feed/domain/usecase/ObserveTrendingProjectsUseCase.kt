@@ -1,8 +1,8 @@
 package com.falon.feed.domain.usecase
 
 import androidx.paging.PagingData
-import com.falon.feed.domain.contract.TrendingProjectsRepository
 import com.falon.feed.domain.model.TrendingProject
+import com.falon.feed.domain.repository.TrendingProjectsRepository
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 import javax.inject.Inject
