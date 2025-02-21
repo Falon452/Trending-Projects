@@ -20,7 +20,7 @@ import androidx.navigation.navArgument
 import com.falon.feed.presentation.details.ui.ProjectDetailsScreen
 import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel.Companion.PROJECT_ID
 import com.falon.feed.presentation.details.viewmodel.ProjectDetailsViewModel.Companion.STAR_RESOURCE_ARG
-import com.falon.feed.presentation.projects.ui.FeedScreen
+import com.falon.feed.presentation.projects.ui.ProjectsScreen
 import com.falon.theme.ui.AppTheme
 import com.falon.trendingprojects.util.shrinkAndFadeAnimationRun
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,7 +62,7 @@ fun AppNavigation() {
             val navController = rememberNavController()
             NavHost(navController, startDestination = Routes.PROJECTS) {
                 composable(Routes.PROJECTS) {
-                    FeedScreen(navController, this)
+                    ProjectsScreen(navController, this)
                 }
                 composable(
                     "${Routes.PROJECT_DETAIL}/{$PROJECT_ID}/{$STAR_RESOURCE_ARG}",

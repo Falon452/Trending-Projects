@@ -45,15 +45,15 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.falon.feed.domain.model.TrendingProject
 import com.falon.feed.presentation.R
-import com.falon.feed.presentation.projects.viewmodel.FeedViewModel
+import com.falon.feed.presentation.projects.viewmodel.ProjectsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.FeedScreen(
+fun SharedTransitionScope.ProjectsScreen(
     navController: NavController,
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
-    viewModel: FeedViewModel = hiltViewModel(),
+    viewModel: ProjectsViewModel = hiltViewModel(),
 ) {
     val projects: LazyPagingItems<TrendingProject> =
         viewModel.trendingProjects.collectAsLazyPagingItems()
@@ -174,7 +174,7 @@ private fun SharedTransitionScope.LoadedState(
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
     navController: NavController,
-    viewModel: FeedViewModel,
+    viewModel: ProjectsViewModel,
     projects: LazyPagingItems<TrendingProject>,
     animatedVisibilityScope: AnimatedVisibilityScope,
 ) {

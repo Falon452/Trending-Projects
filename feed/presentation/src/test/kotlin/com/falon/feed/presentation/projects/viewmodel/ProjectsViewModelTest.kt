@@ -19,7 +19,7 @@ import kotlin.test.assertEquals
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-class FeedViewModelTest {
+class ProjectsViewModelTest {
 
     private val mockObserveTrendingProjectsUseCase =
         mockk<ObserveTrendingProjectsUseCase>(relaxed = true)
@@ -177,8 +177,8 @@ class FeedViewModelTest {
         viewStateMapper: ProjectsViewStateMapper = mockViewStateMapper,
         dispatcherIO: CoroutineDispatcher = ioDispatcher,
         dispatcherDefault: CoroutineDispatcher = defaultDispatcher
-    ): FeedViewModel =
-        FeedViewModel(
+    ): ProjectsViewModel =
+        ProjectsViewModel(
             observeTrendingProjectsUseCase,
             saveSelectedTrendingProjectsUseCase,
             themePreferences,

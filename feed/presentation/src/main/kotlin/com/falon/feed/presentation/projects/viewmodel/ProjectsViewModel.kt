@@ -30,7 +30,7 @@ import java.time.ZoneId
 import javax.inject.Inject
 
 @HiltViewModel
-class FeedViewModel @Inject constructor(
+class ProjectsViewModel @Inject constructor(
     private val observeTrendingProjectsUseCase: ObserveTrendingProjectsUseCase,
     private val saveSelectedTrendingProjectsUseCase: SaveSelectedTrendingProjectsUseCase,
     private val themePreferences: ThemePreferences,
