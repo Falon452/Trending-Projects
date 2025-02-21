@@ -1,6 +1,6 @@
 ## Installation
 
-Java 17 or Java 21
+Java 17
 
 ## Demo
 
