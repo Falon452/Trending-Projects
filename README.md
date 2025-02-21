@@ -32,13 +32,13 @@ The code is unit tested using JUnit 5 and MockK.
 
 **Adhered to Material Design 3.**  
 
-## 🎉 Animations 🎉  
+##  Animations 
 
 - 🚀 **Splash Screen Animation**: Shrink + Fade Out 
 - ✨ **Shimmers**: Supports both **dark mode** & **light mode** 
 - ⭐ **Shared Element Transition**: Smooth animation when clicking on a project ⭐
 
-## ✨ Features
+##  Features
 
 - Infinite scrollable list with pull-to-refresh    
 - Dark theme toggle
@@ -46,7 +46,7 @@ The code is unit tested using JUnit 5 and MockK.
 - ⭐Project details with README fetched  
 - ⭐Open repository URL (either GitHub mobile app if installed or browser)  
 
-## 📦 Key Libraries
+## Key Libraries
 
 - **Jetpack Compose**
 - **Hilt**
